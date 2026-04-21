@@ -20,10 +20,4 @@ jobs:
 
       - name: Lancer les tests de conformité
         run: npx playwright test
-        
-      - name: Envoyer les résultats au Dashboard
-        if: always() # Même si le test échoue, on veut que le Dashboard le sache
-        run: |
-          curl -X POST https://ton-dashboard-api.com/update \
-          -H "Content-Type: application/json" \
-          -d '{"req_id": "REQ_PAY_01", "status": "${{ job.status }}"}'
+     

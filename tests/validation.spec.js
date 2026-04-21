@@ -3,8 +3,10 @@ const { test, expect } = require('@playwright/test');
 
 // @REQ_PAY_01 : Lien avec l'exigence du Dashboard
 test('Vérification du succès de paiement MoMo', async ({ page }) => {
-    // On ouvre le fichier local (ton appli)
-    await page.goto(`file://${process.cwd()}/index.html`);
+  // On crée un chemin robuste qui marche sur Windows ET Linux (GitHub)
+    const filePath = `file://${path.resolve(__dirname, '../index.html')}`;
+    
+    await page.goto(filePath);
 
     // On remplit et on clique grâce au data-testid
     await page.fill('#phone', '67000000');

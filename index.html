@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>App Benin Pay</title></head>
+<body>
+    <h1>Paiement Mobile Money</h1>
+    <input type="text" id="phone" placeholder="Numéro (ex: 67000000)">
+    <button id="pay-btn" data-testid="momo-button">Payer maintenant</button>
+    <p id="message" style="display:none">Paiement réussi !</p>
+
+    <script>
+        document.getElementById('pay-btn').onclick = () => {
+            document.getElementById('message').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

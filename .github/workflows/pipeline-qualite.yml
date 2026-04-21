@@ -1,0 +1,29 @@
+name: Pipeline de Validation Qualité
+on: [push] # Se déclenche à chaque fois que tu envoies du code
+
+jobs:
+  validation-exigences:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Installer les outils de test
+        run: |
+          npm install
+          npx playwright install --with-deps chromium
+
+      - name: Lancer les tests de conformité
+        run: npx playwright test
+        
+      - name: Envoyer les résultats au Dashboard
+        if: always() # Même si le test échoue, on veut que le Dashboard le sache
+        run: |
+          curl -X POST https://ton-dashboard-api.com/update \
+          -H "Content-Type: application/json" \
+          -d '{"req_id": "REQ_PAY_01", "status": "${{ job.status }}"}'
